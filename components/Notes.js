@@ -16,7 +16,7 @@ import {
 import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
-const Notes = () => {
+const Notes = ({ navigation }) => {
   return (
     <View style={styles.notesContainer}>
       <View style={styles.headingContainer}>
@@ -32,7 +32,10 @@ const Notes = () => {
               />
             </ApplicationProvider>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button]}>
+          <TouchableOpacity
+            style={[styles.button]}
+            onPress={() => navigation.navigate("AddNotes")}
+          >
             <IconRegistry icons={EvaIconsPack} />
             <ApplicationProvider {...eva} theme={eva.light}>
               <Icon
