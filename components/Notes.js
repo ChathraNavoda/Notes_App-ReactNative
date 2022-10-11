@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import * as Style from "../assets/style";
 import {
@@ -16,13 +17,16 @@ import {
 import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
-const Notes = ({ navigation }) => {
+const Notes = ({ navigation, ...props }) => {
   return (
     <View style={styles.notesContainer}>
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>My Notes...</Text>
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity style={[styles.button, { marginLeft: 40 }]}>
+          <TouchableOpacity
+            style={[styles.button, { marginLeft: 40 }]}
+            onPress={() => navigation.navigate("DeletedNotes")}
+          >
             <IconRegistry icons={EvaIconsPack} />
             <ApplicationProvider {...eva} theme={eva.light}>
               <Icon
@@ -73,6 +77,30 @@ const Notes = ({ navigation }) => {
           <Text style={styles.searchButtonText}>Clear</Text>
         </TouchableOpacity>
       </View>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
+        {props.notes.length === 0 ? (
+          <View style={styles.emptyNoteContainer}>
+            <Text style={styles.emptyNoteText}>
+              There is no notes yet! Click on the + plus button to add new note.
+            </Text>
+          </View>
+        ) : (
+          props.notes.map((item, index) => {
+            <View style={styles.item} key={index}>
+              <View style={styles.note}>
+                <Text style={styles.index}>{index + 1}</Text>
+                <Text style={styles.text}>{item}</Text>
+              </View>
+              <TouchableOpacity>
+                <Text style={styles.delete}>x</Text>
+              </TouchableOpacity>
+            </View>;
+          })
+        )}
+      </ScrollView>
     </View>
   );
 };
