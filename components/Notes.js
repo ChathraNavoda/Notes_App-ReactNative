@@ -88,17 +88,31 @@ const Notes = ({ navigation, ...props }) => {
             </Text>
           </View>
         ) : (
-          props.notes.map((item, index) => {
+          props.notes.map((item, index) => (
             <View style={styles.item} key={index}>
-              <View style={styles.note}>
-                <Text style={styles.index}>{index + 1}</Text>
-                <Text style={styles.text}>{item}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View style={styles.note}>
+                  <Text style={styles.index}>{index + 1}</Text>
+                  <Text style={styles.text}>{item}</Text>
+                </View>
+                <TouchableOpacity>
+                  <Text style={styles.delete}>x</Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity>
-                <Text style={styles.delete}>x</Text>
-              </TouchableOpacity>
-            </View>;
-          })
+              <View style={styles.dateContainer}>
+                <Text>Date: </Text>
+
+                <TouchableOpacity>
+                  <Text style={styles.delete}>Edit</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))
         )}
       </ScrollView>
     </View>
@@ -136,7 +150,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
     backgroundColor: "white",
-    borderColor: `#dc143c`,
+    borderColor: Style.color,
     borderWidth: 2,
     borderRadius: 5,
     borderLeftWidth: 15,
